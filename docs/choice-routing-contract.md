@@ -59,7 +59,8 @@ verified before implementation; this proposal assumes no unverified Core API.
 1. Observe cancellation/deadline; validate the request and caller policy.
 2. Validate backend capability, then invoke the backend once.
 3. Observe cancellation/deadline; classify the backend terminal event.
-4. For a prediction, validate question identity, options and distribution.
+4. For a prediction, validate question identity, options, distribution and any
+   advertised confidence independently of acceptance policy.
 5. Evaluate required acceptance evidence and caller thresholds.
 6. Observe cancellation/deadline before committing one terminal outcome.
 
@@ -79,6 +80,7 @@ Named Specifications and their required inputs:
 | BackendSupportsRequest | Explicit text/Choice capabilities and adapter limits | Failed(capability_validation) |
 | AnswerMatchesRequest | One matching question/type; exact option identities | Failed(output_validation) |
 | ProbabilityDistributionValid | All probabilities finite/in [0,1]; exact coverage; unit sum | Failed(output_validation) |
+| AdvertisedConfidenceValid | If confidence is present, finite value in [0,1]; if absent, declared unavailable | Failed(output_validation) |
 | SelectedOptionConsistent | Known selection and maximum/tie consistency | Failed(output_validation) |
 | AcceptanceEvidencePresent | Only probability/confidence required by the caller policy | Acceptance routing table |
 | AcceptancePolicySatisfied | Validated required values and thresholds | Acceptance routing table |
@@ -88,6 +90,13 @@ adapter declares it unavailable; it becomes unknown only for acceptance policies
 requiring confidence. An advertised confidence that is nonfinite or outside
 [0,1] is invalid output. Valid numerical confidence is not evidence of
 cross-provider calibration.
+
+AdvertisedConfidenceValid is evaluated for every prediction before acceptance
+evidence, including probability-only and empty-threshold policies. It is
+satisfied by a valid present confidence or a permitted declared absence;
+nonfinite/out-of-range confidence is violated and never becomes ordinary
+missing evidence. Unsupported or contradictory confidence representation
+is unknown/conflict at the structural boundary and also fails output validation.
 
 ## Numerical and mapping rules proposed for v1
 
@@ -122,7 +131,8 @@ processing; downstream rules remain not evaluated.
 | 2 | Deadline expired at a boundary, without observed cancellation | Failed(timed_out) |
 | 3 | Request or caller policy assessment is not satisfied | Failed with its validation category |
 | 4 | Capability assessment is not satisfied | Failed(capability_validation) |
-| 5 | Valid request/policy/capability; no backend event yet | Invoke backend, await a terminal event |
+| 5a | Valid request/policy/capability; backend not yet invoked | Invoke backend once; mark invocation started |
+| 5b | Invocation started; no terminal backend event yet | Await event without invoking again |
 | 6 | Backend cancellation | Cancelled |
 | 7 | Backend operational, timeout, capability or malformed-response failure | Failed with the mapped category |
 | 8 | Backend refusal | Route reason provider_refusal through fallback table |
@@ -195,6 +205,9 @@ Verify these obligations:
    the application outcome unchanged; the externally supplied order is retained.
 7. Skipped rules have no invented evaluation evidence; evaluation and lifecycle
    trace events remain distinguishable.
+8. Present invalid confidence cannot produce Accepted under any acceptance
+   policy, including probability-only and empty-threshold policies.
+9. Awaiting an already-started invocation never starts a second invocation.
 
 | Case | Expected outcome |
 | --- | --- |
@@ -202,6 +215,8 @@ Verify these obligations:
 | Same prediction; required confidence absent | Abstained(missing_evidence), or configured matching fallback |
 | Same prediction; required p>=0.9 | Abstained(policy_rejected), or configured matching fallback |
 | Unknown selected ID, duplicate answer or nonfinite probability | Failed(output_validation) |
+| Otherwise valid prediction; confidence NaN, infinity, -0.1 or 1.1; probability-only or empty-threshold policy | Failed(output_validation) |
+| Otherwise valid prediction; confidence declared unavailable; probability-only policy passes | Accepted |
 | Valid provider refusal | Abstained(provider_refusal), or configured matching fallback |
 | Authentication failure with fallback configured | Failed(authentication), no fallback |
 | Observed cancellation and expiry before commitment | Cancelled |
