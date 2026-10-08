@@ -1,12 +1,15 @@
 #![forbid(unsafe_code)]
-//! Runtime-neutral, text-only Choice decisions. No networking or retries.
+//! Runtime-neutral, text-only Choice, Predicate and Score decisions. No networking or retries.
 //! Rules validate structural contracts and caller policy, not semantic truth.
+mod numeric;
 #[cfg(feature = "verification")]
 #[doc(hidden)]
 pub mod routing;
 #[cfg(not(feature = "verification"))]
 mod routing;
 mod rules;
+mod scalar;
+pub use scalar::*;
 use specification_core::Specification;
 
 /// A caller-owned option mapping; values never cross the backend boundary.
