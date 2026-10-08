@@ -1,0 +1,3369 @@
+{
+  "schema_version": 1,
+  "checker_version": "1.0.0",
+  "passed": true,
+  "generated_at_utc": "2026-10-08T07:45:36.169442+00:00",
+  "python_version": "3.9.6",
+  "checkout_revision": "3c481eb546c043f95ef6acdc0589e5f67c07effc",
+  "source_sha256": {
+    "verification/choice_model.py": "dea618bbeaa407227f78fdf26e810e6e2683595cd86205c4bcb039abc62bf327",
+    "docs/choice-finite-model.md": "304c79610b6a4950eebb36367a8ccdc8b16e32a96a8172396083e577d70fbffd",
+    "docs/choice-routing-contract.md": "9f000a968dcd5cb0d56dbb8296b60035ddd2bfb950da64dca16d72788034f089",
+    "verification/README.md": "13bbb6e5fe2a95b7241da5e16efdac62dd7ce688b4fd6e89116c1b402f5c4126",
+    "verification/test_choice_model.py": "00d94740411f2336b56ca83ca2ea258139f80fc4ef84cc9044b02ea10e953edc"
+  },
+  "command": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "verification/choice_model.py",
+    "--output",
+    "verification/runs/2026-10-08/report.json"
+  ],
+  "models": {
+    "primary": {
+      "consistent_full_inputs": 5160906,
+      "representative_inputs": 1665,
+      "states": 90387,
+      "state_action_pairs": 388908,
+      "passed": true,
+      "outcomes": [
+        [
+          "Abstained",
+          "conflicting_evidence"
+        ],
+        [
+          "Abstained",
+          "missing_evidence"
+        ],
+        [
+          "Abstained",
+          "policy_rejected"
+        ],
+        [
+          "Abstained",
+          "provider_refusal"
+        ],
+        [
+          "Accepted",
+          ""
+        ],
+        [
+          "Cancelled",
+          ""
+        ],
+        [
+          "Failed",
+          "authentication_error"
+        ],
+        [
+          "Failed",
+          "capability_validation"
+        ],
+        [
+          "Failed",
+          "malformed_response"
+        ],
+        [
+          "Failed",
+          "output_validation"
+        ],
+        [
+          "Failed",
+          "policy_validation"
+        ],
+        [
+          "Failed",
+          "request_validation"
+        ],
+        [
+          "Failed",
+          "timed_out"
+        ],
+        [
+          "Failed",
+          "transport_error"
+        ],
+        [
+          "Failed",
+          "unsupported"
+        ],
+        [
+          "Fallback",
+          "missing_evidence"
+        ],
+        [
+          "Fallback",
+          "policy_rejected"
+        ],
+        [
+          "Fallback",
+          "provider_refusal"
+        ]
+      ],
+      "counterexample": null,
+      "properties": {
+        "P1": "passed",
+        "P2": "passed",
+        "P3": "passed",
+        "P4": "passed",
+        "P5": "passed",
+        "P6": "passed",
+        "P7": "passed",
+        "P8": "passed",
+        "P9": "passed",
+        "P10": "passed",
+        "P11": "passed",
+        "P12": "passed"
+      },
+      "P12_scope": "Rank increases on non-stutter transitions; only Await and Done stutter. Termination conditional on eventual backend event/observable cancellation/expiry and fair core progression."
+    },
+    "conservative_extension": {
+      "consistent_full_inputs": 5898168,
+      "representative_inputs": 1719,
+      "states": 96165,
+      "state_action_pairs": 413748,
+      "passed": true,
+      "outcomes": [
+        [
+          "Abstained",
+          "conflicting_evidence"
+        ],
+        [
+          "Abstained",
+          "missing_evidence"
+        ],
+        [
+          "Abstained",
+          "policy_rejected"
+        ],
+        [
+          "Abstained",
+          "provider_refusal"
+        ],
+        [
+          "Accepted",
+          ""
+        ],
+        [
+          "Cancelled",
+          ""
+        ],
+        [
+          "Failed",
+          "authentication_error"
+        ],
+        [
+          "Failed",
+          "capability_validation"
+        ],
+        [
+          "Failed",
+          "malformed_response"
+        ],
+        [
+          "Failed",
+          "output_validation"
+        ],
+        [
+          "Failed",
+          "policy_validation"
+        ],
+        [
+          "Failed",
+          "request_validation"
+        ],
+        [
+          "Failed",
+          "timed_out"
+        ],
+        [
+          "Failed",
+          "transport_error"
+        ],
+        [
+          "Failed",
+          "unsupported"
+        ],
+        [
+          "Fallback",
+          "missing_evidence"
+        ],
+        [
+          "Fallback",
+          "policy_rejected"
+        ],
+        [
+          "Fallback",
+          "provider_refusal"
+        ]
+      ],
+      "counterexample": null,
+      "properties": {
+        "P1": "passed",
+        "P2": "passed",
+        "P3": "passed",
+        "P4": "passed",
+        "P5": "passed",
+        "P6": "passed",
+        "P7": "passed",
+        "P8": "passed",
+        "P9": "passed",
+        "P10": "passed",
+        "P11": "passed",
+        "P12": "passed"
+      },
+      "P12_scope": "Rank increases on non-stutter transitions; only Await and Done stutter. Termination conditional on eventual backend event/observable cancellation/expiry and fair core progression."
+    }
+  },
+  "mutation_controls": {
+    "accept_invalid_confidence": {
+      "detected": true,
+      "states": 26767,
+      "state_action_pairs": 115449,
+      "passed": false,
+      "counterexample": {
+        "property": "P8",
+        "initial": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "V",
+              "S",
+              "S",
+              "S"
+            ],
+            "confidence": "invalid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Request",
+          "invocations": 0,
+          "event": "",
+          "assessed": [
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE"
+          ],
+          "log": [],
+          "cursor": 0,
+          "cancelled": false,
+          "expired": false,
+          "candidate": null,
+          "published": null
+        },
+        "prefix": [
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Policy",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Capability",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Invoke",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Await",
+              "invocations": 1,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": "prediction"
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Dispatch",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Output",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Output",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ]
+              ],
+              "cursor": 1,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Output",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ],
+                [
+                  4,
+                  "S"
+                ]
+              ],
+              "cursor": 2,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Output",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "V",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ],
+                [
+                  4,
+                  "S"
+                ],
+                [
+                  5,
+                  "V"
+                ]
+              ],
+              "cursor": 3,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Evidence",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "V",
+                "S",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ],
+                [
+                  4,
+                  "S"
+                ],
+                [
+                  5,
+                  "V"
+                ],
+                [
+                  6,
+                  "S"
+                ]
+              ],
+              "cursor": 3,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Thresholds",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "V",
+                "S",
+                "S",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ],
+                [
+                  4,
+                  "S"
+                ],
+                [
+                  5,
+                  "V"
+                ],
+                [
+                  6,
+                  "S"
+                ],
+                [
+                  7,
+                  "S"
+                ]
+              ],
+              "cursor": 3,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "invalid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Commit",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "V",
+                "S",
+                "S",
+                "S"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ],
+                [
+                  4,
+                  "S"
+                ],
+                [
+                  5,
+                  "V"
+                ],
+                [
+                  6,
+                  "S"
+                ],
+                [
+                  7,
+                  "S"
+                ],
+                [
+                  8,
+                  "S"
+                ]
+              ],
+              "cursor": 3,
+              "cancelled": false,
+              "expired": false,
+              "candidate": {
+                "kind": "Accepted",
+                "reason": "",
+                "value": "selected_value"
+              },
+              "published": null
+            }
+          }
+        ],
+        "state": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "V",
+              "S",
+              "S",
+              "S"
+            ],
+            "confidence": "invalid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Commit",
+          "invocations": 1,
+          "event": "prediction",
+          "assessed": [
+            "S",
+            "S",
+            "S",
+            "S",
+            "S",
+            "V",
+            "S",
+            "S",
+            "S"
+          ],
+          "log": [
+            [
+              0,
+              "S"
+            ],
+            [
+              1,
+              "S"
+            ],
+            [
+              2,
+              "S"
+            ],
+            [
+              3,
+              "S"
+            ],
+            [
+              4,
+              "S"
+            ],
+            [
+              5,
+              "V"
+            ],
+            [
+              6,
+              "S"
+            ],
+            [
+              7,
+              "S"
+            ],
+            [
+              8,
+              "S"
+            ]
+          ],
+          "cursor": 3,
+          "cancelled": false,
+          "expired": false,
+          "candidate": {
+            "kind": "Accepted",
+            "reason": "",
+            "value": "selected_value"
+          },
+          "published": null
+        },
+        "action": {
+          "cancel": false,
+          "expire": false,
+          "deliver": ""
+        },
+        "successors": [
+          {
+            "inputs": {
+              "plan": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "V",
+                "S",
+                "S",
+                "S"
+              ],
+              "confidence": "invalid_present",
+              "requires_confidence": false,
+              "fallback": -1
+            },
+            "phase": "Done",
+            "invocations": 1,
+            "event": "prediction",
+            "assessed": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "V",
+              "S",
+              "S",
+              "S"
+            ],
+            "log": [
+              [
+                0,
+                "S"
+              ],
+              [
+                1,
+                "S"
+              ],
+              [
+                2,
+                "S"
+              ],
+              [
+                3,
+                "S"
+              ],
+              [
+                4,
+                "S"
+              ],
+              [
+                5,
+                "V"
+              ],
+              [
+                6,
+                "S"
+              ],
+              [
+                7,
+                "S"
+              ],
+              [
+                8,
+                "S"
+              ]
+            ],
+            "cursor": 3,
+            "cancelled": false,
+            "expired": false,
+            "candidate": {
+              "kind": "Accepted",
+              "reason": "",
+              "value": "selected_value"
+            },
+            "published": {
+              "kind": "Accepted",
+              "reason": "",
+              "value": "selected_value"
+            }
+          }
+        ]
+      }
+    },
+    "repeat_await": {
+      "detected": true,
+      "states": 14,
+      "state_action_pairs": 53,
+      "passed": false,
+      "counterexample": {
+        "property": "P6",
+        "initial": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S"
+            ],
+            "confidence": "valid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Request",
+          "invocations": 0,
+          "event": "",
+          "assessed": [
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE"
+          ],
+          "log": [],
+          "cursor": 0,
+          "cancelled": false,
+          "expired": false,
+          "candidate": null,
+          "published": null
+        },
+        "prefix": [
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Policy",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Capability",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Invoke",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Await",
+              "invocations": 1,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          }
+        ],
+        "state": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S"
+            ],
+            "confidence": "valid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Await",
+          "invocations": 1,
+          "event": "",
+          "assessed": [
+            "S",
+            "S",
+            "S",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE"
+          ],
+          "log": [
+            [
+              0,
+              "S"
+            ],
+            [
+              1,
+              "S"
+            ],
+            [
+              2,
+              "S"
+            ]
+          ],
+          "cursor": 0,
+          "cancelled": false,
+          "expired": false,
+          "candidate": null,
+          "published": null
+        },
+        "action": {
+          "cancel": false,
+          "expire": false,
+          "deliver": ""
+        },
+        "successors": [
+          {
+            "inputs": {
+              "plan": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S"
+              ],
+              "confidence": "valid_present",
+              "requires_confidence": false,
+              "fallback": -1
+            },
+            "phase": "Await",
+            "invocations": 2,
+            "event": "",
+            "assessed": [
+              "S",
+              "S",
+              "S",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE"
+            ],
+            "log": [
+              [
+                0,
+                "S"
+              ],
+              [
+                1,
+                "S"
+              ],
+              [
+                2,
+                "S"
+              ]
+            ],
+            "cursor": 0,
+            "cancelled": false,
+            "expired": false,
+            "candidate": null,
+            "published": null
+          }
+        ]
+      }
+    },
+    "fallback_authentication": {
+      "detected": true,
+      "states": 41,
+      "state_action_pairs": 193,
+      "passed": false,
+      "counterexample": {
+        "property": "P7",
+        "initial": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S"
+            ],
+            "confidence": "valid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Request",
+          "invocations": 0,
+          "event": "",
+          "assessed": [
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE"
+          ],
+          "log": [],
+          "cursor": 0,
+          "cancelled": false,
+          "expired": false,
+          "candidate": null,
+          "published": null
+        },
+        "prefix": [
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Policy",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Capability",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Invoke",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Await",
+              "invocations": 1,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": "authentication_error"
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Dispatch",
+              "invocations": 1,
+              "event": "authentication_error",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Commit",
+              "invocations": 1,
+              "event": "authentication_error",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": {
+                "kind": "Fallback",
+                "reason": "authentication_error",
+                "value": "fallback_value"
+              },
+              "published": null
+            }
+          }
+        ],
+        "state": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S"
+            ],
+            "confidence": "valid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Commit",
+          "invocations": 1,
+          "event": "authentication_error",
+          "assessed": [
+            "S",
+            "S",
+            "S",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE"
+          ],
+          "log": [
+            [
+              0,
+              "S"
+            ],
+            [
+              1,
+              "S"
+            ],
+            [
+              2,
+              "S"
+            ]
+          ],
+          "cursor": 0,
+          "cancelled": false,
+          "expired": false,
+          "candidate": {
+            "kind": "Fallback",
+            "reason": "authentication_error",
+            "value": "fallback_value"
+          },
+          "published": null
+        },
+        "action": {
+          "cancel": false,
+          "expire": false,
+          "deliver": ""
+        },
+        "successors": [
+          {
+            "inputs": {
+              "plan": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S"
+              ],
+              "confidence": "valid_present",
+              "requires_confidence": false,
+              "fallback": -1
+            },
+            "phase": "Done",
+            "invocations": 1,
+            "event": "authentication_error",
+            "assessed": [
+              "S",
+              "S",
+              "S",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE"
+            ],
+            "log": [
+              [
+                0,
+                "S"
+              ],
+              [
+                1,
+                "S"
+              ],
+              [
+                2,
+                "S"
+              ]
+            ],
+            "cursor": 0,
+            "cancelled": false,
+            "expired": false,
+            "candidate": {
+              "kind": "Fallback",
+              "reason": "authentication_error",
+              "value": "fallback_value"
+            },
+            "published": {
+              "kind": "Fallback",
+              "reason": "authentication_error",
+              "value": "fallback_value"
+            }
+          }
+        ]
+      }
+    },
+    "accept_missing_evidence": {
+      "detected": true,
+      "states": 5874,
+      "state_action_pairs": 25253,
+      "passed": false,
+      "counterexample": {
+        "property": "P4",
+        "initial": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "V",
+              "S"
+            ],
+            "confidence": "valid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Request",
+          "invocations": 0,
+          "event": "",
+          "assessed": [
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE"
+          ],
+          "log": [],
+          "cursor": 0,
+          "cancelled": false,
+          "expired": false,
+          "candidate": null,
+          "published": null
+        },
+        "prefix": [
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Policy",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Capability",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Invoke",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Await",
+              "invocations": 1,
+              "event": "",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": "prediction"
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Dispatch",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Output",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ]
+              ],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Output",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ]
+              ],
+              "cursor": 1,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Output",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ],
+                [
+                  4,
+                  "S"
+                ]
+              ],
+              "cursor": 2,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Output",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ],
+                [
+                  4,
+                  "S"
+                ],
+                [
+                  5,
+                  "S"
+                ]
+              ],
+              "cursor": 3,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Evidence",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "NE",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ],
+                [
+                  4,
+                  "S"
+                ],
+                [
+                  5,
+                  "S"
+                ],
+                [
+                  6,
+                  "S"
+                ]
+              ],
+              "cursor": 3,
+              "cancelled": false,
+              "expired": false,
+              "candidate": null,
+              "published": null
+            }
+          },
+          {
+            "action": {
+              "cancel": false,
+              "expire": false,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "V",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Commit",
+              "invocations": 1,
+              "event": "prediction",
+              "assessed": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "V",
+                "NE"
+              ],
+              "log": [
+                [
+                  0,
+                  "S"
+                ],
+                [
+                  1,
+                  "S"
+                ],
+                [
+                  2,
+                  "S"
+                ],
+                [
+                  3,
+                  "S"
+                ],
+                [
+                  4,
+                  "S"
+                ],
+                [
+                  5,
+                  "S"
+                ],
+                [
+                  6,
+                  "S"
+                ],
+                [
+                  7,
+                  "V"
+                ]
+              ],
+              "cursor": 3,
+              "cancelled": false,
+              "expired": false,
+              "candidate": {
+                "kind": "Accepted",
+                "reason": "",
+                "value": "selected_value"
+              },
+              "published": null
+            }
+          }
+        ],
+        "state": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "V",
+              "S"
+            ],
+            "confidence": "valid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Commit",
+          "invocations": 1,
+          "event": "prediction",
+          "assessed": [
+            "S",
+            "S",
+            "S",
+            "S",
+            "S",
+            "S",
+            "S",
+            "V",
+            "NE"
+          ],
+          "log": [
+            [
+              0,
+              "S"
+            ],
+            [
+              1,
+              "S"
+            ],
+            [
+              2,
+              "S"
+            ],
+            [
+              3,
+              "S"
+            ],
+            [
+              4,
+              "S"
+            ],
+            [
+              5,
+              "S"
+            ],
+            [
+              6,
+              "S"
+            ],
+            [
+              7,
+              "V"
+            ]
+          ],
+          "cursor": 3,
+          "cancelled": false,
+          "expired": false,
+          "candidate": {
+            "kind": "Accepted",
+            "reason": "",
+            "value": "selected_value"
+          },
+          "published": null
+        },
+        "action": {
+          "cancel": false,
+          "expire": false,
+          "deliver": ""
+        },
+        "successors": [
+          {
+            "inputs": {
+              "plan": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "V",
+                "S"
+              ],
+              "confidence": "valid_present",
+              "requires_confidence": false,
+              "fallback": -1
+            },
+            "phase": "Done",
+            "invocations": 1,
+            "event": "prediction",
+            "assessed": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "V",
+              "NE"
+            ],
+            "log": [
+              [
+                0,
+                "S"
+              ],
+              [
+                1,
+                "S"
+              ],
+              [
+                2,
+                "S"
+              ],
+              [
+                3,
+                "S"
+              ],
+              [
+                4,
+                "S"
+              ],
+              [
+                5,
+                "S"
+              ],
+              [
+                6,
+                "S"
+              ],
+              [
+                7,
+                "V"
+              ]
+            ],
+            "cursor": 3,
+            "cancelled": false,
+            "expired": false,
+            "candidate": {
+              "kind": "Accepted",
+              "reason": "",
+              "value": "selected_value"
+            },
+            "published": {
+              "kind": "Accepted",
+              "reason": "",
+              "value": "selected_value"
+            }
+          }
+        ]
+      }
+    },
+    "rewrite_done": {
+      "detected": true,
+      "states": 3,
+      "state_action_pairs": 11,
+      "passed": false,
+      "counterexample": {
+        "property": "P3",
+        "initial": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S"
+            ],
+            "confidence": "valid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Request",
+          "invocations": 0,
+          "event": "",
+          "assessed": [
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE"
+          ],
+          "log": [],
+          "cursor": 0,
+          "cancelled": false,
+          "expired": false,
+          "candidate": null,
+          "published": null
+        },
+        "prefix": [
+          {
+            "action": {
+              "cancel": false,
+              "expire": true,
+              "deliver": ""
+            },
+            "after": {
+              "inputs": {
+                "plan": [
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S",
+                  "S"
+                ],
+                "confidence": "valid_present",
+                "requires_confidence": false,
+                "fallback": -1
+              },
+              "phase": "Done",
+              "invocations": 0,
+              "event": "",
+              "assessed": [
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE",
+                "NE"
+              ],
+              "log": [],
+              "cursor": 0,
+              "cancelled": false,
+              "expired": true,
+              "candidate": null,
+              "published": {
+                "kind": "Failed",
+                "reason": "timed_out",
+                "value": ""
+              }
+            }
+          }
+        ],
+        "state": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S"
+            ],
+            "confidence": "valid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Done",
+          "invocations": 0,
+          "event": "",
+          "assessed": [
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE"
+          ],
+          "log": [],
+          "cursor": 0,
+          "cancelled": false,
+          "expired": true,
+          "candidate": null,
+          "published": {
+            "kind": "Failed",
+            "reason": "timed_out",
+            "value": ""
+          }
+        },
+        "action": {
+          "cancel": true,
+          "expire": false,
+          "deliver": ""
+        },
+        "successors": [
+          {
+            "inputs": {
+              "plan": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S"
+              ],
+              "confidence": "valid_present",
+              "requires_confidence": false,
+              "fallback": -1
+            },
+            "phase": "Done",
+            "invocations": 0,
+            "event": "",
+            "assessed": [
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE"
+            ],
+            "log": [],
+            "cursor": 0,
+            "cancelled": false,
+            "expired": true,
+            "candidate": null,
+            "published": {
+              "kind": "Cancelled",
+              "reason": "",
+              "value": ""
+            }
+          }
+        ]
+      }
+    },
+    "nondeterministic_request": {
+      "detected": true,
+      "states": 1,
+      "state_action_pairs": 1,
+      "passed": false,
+      "counterexample": {
+        "property": "P2",
+        "initial": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S"
+            ],
+            "confidence": "valid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Request",
+          "invocations": 0,
+          "event": "",
+          "assessed": [
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE"
+          ],
+          "log": [],
+          "cursor": 0,
+          "cancelled": false,
+          "expired": false,
+          "candidate": null,
+          "published": null
+        },
+        "prefix": [],
+        "state": {
+          "inputs": {
+            "plan": [
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S",
+              "S"
+            ],
+            "confidence": "valid_present",
+            "requires_confidence": false,
+            "fallback": -1
+          },
+          "phase": "Request",
+          "invocations": 0,
+          "event": "",
+          "assessed": [
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE",
+            "NE"
+          ],
+          "log": [],
+          "cursor": 0,
+          "cancelled": false,
+          "expired": false,
+          "candidate": null,
+          "published": null
+        },
+        "action": {
+          "cancel": false,
+          "expire": false,
+          "deliver": ""
+        },
+        "successors": [
+          {
+            "inputs": {
+              "plan": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S"
+              ],
+              "confidence": "valid_present",
+              "requires_confidence": false,
+              "fallback": -1
+            },
+            "phase": "Policy",
+            "invocations": 0,
+            "event": "",
+            "assessed": [
+              "S",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE"
+            ],
+            "log": [
+              [
+                0,
+                "S"
+              ]
+            ],
+            "cursor": 0,
+            "cancelled": false,
+            "expired": false,
+            "candidate": null,
+            "published": null
+          },
+          {
+            "inputs": {
+              "plan": [
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S",
+                "S"
+              ],
+              "confidence": "valid_present",
+              "requires_confidence": false,
+              "fallback": -1
+            },
+            "phase": "Commit",
+            "invocations": 0,
+            "event": "",
+            "assessed": [
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE",
+              "NE"
+            ],
+            "log": [],
+            "cursor": 0,
+            "cancelled": false,
+            "expired": false,
+            "candidate": {
+              "kind": "Failed",
+              "reason": "internal_contract",
+              "value": ""
+            },
+            "published": null
+          }
+        ]
+      }
+    }
+  },
+  "limits": [
+    "Finite routing abstraction with dormant-plan quotient; not production Rust verification.",
+    "Validator correctness, floating point, mapping, model accuracy and real cancellation are not proved.",
+    "Termination is conditional; permanently waiting backend is allowed in safety exploration."
+  ]
+}
