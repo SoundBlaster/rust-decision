@@ -42,3 +42,22 @@ returned `Accepted(Policy); 9 evaluated rules` without any provider request.
 The named numeric Specifications are tested separately from the supplied finite
 assessment plans. No live provider, wire parsing, calibration, model provenance
 or interruption of blocking I/O is established by this evidence.
+
+## Numerical permutation correction
+
+Independent review found order-dependent sequential probability summation.
+Source commit `3092f1c` validates individual bounds first, sums a private copy in
+ascending numerical order with Neumaier compensation, and applies epsilon
+unchanged. Caller option order and ID/value mapping remain unchanged.
+
+The two positive permutation regressions failed before the fix. Afterward,
+18 Rust tests passed on stable and Rust 1.85, including all 36 independent
+request/probability order combinations for each of four distributions: valid
+at zero tolerance, valid at the default tolerance boundary, and invalid beyond
+each tolerance. Clippy passed on both toolchains; default-feature tests and
+format/diff checks passed.
+
+The routing engine and finite-model checker were not changed. The earlier
+`rust-parity.json` remains evidence for its recorded source revision; fresh CI
+produces a separate report for the corrected PR head. Numeric regressions,
+not finite assessment parity, detect this numerical defect.
