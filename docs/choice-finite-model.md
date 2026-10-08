@@ -1,8 +1,9 @@
 # Finite model for Choice routing — proposal
 
-Status: theoretical preparation, 2026-10-08. This document defines the model
-to be checked against the [Choice routing contract](choice-routing-contract.md).
-It contains no executable model, Rust implementation or verification result.
+Status: model specification, 2026-10-08. This document defines the model
+checked against the [Choice routing contract](choice-routing-contract.md) by the
+separate [offline checker](../verification/README.md). It does not specify a
+production Rust implementation; verification results belong to checker reports.
 Baseline contract: main commit `278db49` (PR #2, including confidence validation).
 
 ## What the model establishes
@@ -219,7 +220,8 @@ For each violation retain the shortest available counterexample: initial input
 partition and assessment_plan, phase/event sequence, rule assessments, candidate
 and published outcome. For a successful future run retain the model version/digest, contract
 revision, checker version/command, assumptions, explored-state count and property
-results. No such counts or results exist in this documentation PR.
+results. The offline checker emits these artifacts; consult a concrete report
+and its source digests rather than treating this specification as a run result.
 
 Before claiming proof, check that deliberately faulty model variants produce
 counterexamples: accepting invalid confidence; invoking again while Await;
@@ -229,7 +231,7 @@ the routing function so a checker does not merely compare a function to itself.
 
 ## Next implementation boundary
 
-Review this state model and its abstraction limits. The next implementation
-task is a small offline model checker or finite-state specification, separate
-from production RustDecision and hosted inference. Map each model rule to its
-future SpecificationCore implementation and check implementation parity later.
+Review this state model, its abstraction limits and the offline checker.
+Next, map each model rule to its production SpecificationCore implementation
+and check implementation parity. Hosted inference remains a separate adapter
+integration and quality-evaluation task.
