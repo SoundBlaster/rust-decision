@@ -1,9 +1,10 @@
 # RustDecision contract proposal
 
 Status: contract proposal with initial Rust implementation, 2026-10-08.
-The typed synchronous Choice API and named rules are implemented; HTTP, model
+The typed synchronous Choice, Predicate and Score APIs and named rules are implemented; HTTP, model
 provenance, real transport cancellation and calibration remain adapter work.
-Original proposal text below distinguishes later design requirements.
+See [scalar contracts](scalar-contract.md) for implemented Predicate/Score behavior.
+Original proposal text below records the initial Choice-first design baseline.
 
 Design baseline: theoretical preparation, 2026-10-07. The proposal itself is not a release guarantee; the current implementation
 has a synchronous backend trait and fixture tests, with no network adapter. Package name: `rust-decision`; Rust import: `rust_decision`.
@@ -30,8 +31,9 @@ has a unique opaque string ID and criterion description. Application values
 (including enums) stay local behind the ID mapping; the provider never
 constructs an application enum. Preserve the supplied ordering.
 
-The contract reserves future Predicate and Score capabilities without claiming
-support. Noul is Jev terminology; a generic Boolean question is Predicate.
+Predicate and Score are now implemented through the additive ScalarBackend
+boundary and their explicit [mapping contracts](scalar-contract.md). Noul is
+Jev terminology; a generic Boolean question is Predicate.
 Multimodal input, native multi-question requests and scheduling are later
 extensions. Unsupported capabilities must be rejected before network inference.
 
@@ -115,10 +117,10 @@ explicit refusal answer. Choice uses typed values and per-option probability
 entries. The initial string-ID core is a deliberate subset; adapters must not
 stringify Boolean values into strings without an explicit mapping.
 
-Future Score support must distinguish selected level from expected value;
+Score support distinguishes selected level from expected value;
 OpenAI's score can lie between levels. Do not infer the winner from that scalar.
-Future Predicate support must preserve positive-statement probability. Neither
-future feature requires Jev's native response shape in the core.
+Predicate support preserves positive-statement probability. Neither
+feature requires Jev's native response shape in the core.
 
 The in-progress
 [Jev4Mellea PR #28](https://github.com/SoundBlaster/Jev4Mellea/pull/28)
@@ -144,8 +146,8 @@ the first implementation stage.
    checks for reports, two classification axes and authority boundaries.
 4. Design a separate OpenAI adapter using its native contract; compare adapters
    on identical reviewed cases before sharing thresholds.
-5. Add Predicate, Score and multi-question execution only with explicit mapping
-   contracts and consumer demand.
+5. Predicate and Score are implemented with explicit scalar contracts.
+   Multi-question execution remains future work requiring its own contract.
 
 No live inference or quality claim follows from this document. Initial success
 means typed mapping, deterministic contract checks, visible uncertainty and
