@@ -1,7 +1,12 @@
 # RustDecision contract proposal
 
-Status: theoretical preparation, 2026-10-07. No Rust API or backend is implemented
-by this proposal. Package name: `rust-decision`; Rust import: `rust_decision`.
+Status: contract proposal with initial Rust implementation, 2026-10-08.
+The typed synchronous Choice API and named rules are implemented; HTTP, model
+provenance, real transport cancellation and calibration remain adapter work.
+Original proposal text below distinguishes later design requirements.
+
+Design baseline: theoretical preparation, 2026-10-07. The proposal itself is not a release guarantee; the current implementation
+has a synchronous backend trait and fixture tests, with no network adapter. Package name: `rust-decision`; Rust import: `rust_decision`.
 
 ## Purpose and ownership
 

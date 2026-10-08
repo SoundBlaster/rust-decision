@@ -27,3 +27,29 @@ jobs:
           name: choice-model-report
           path: verification-output/report.json
           if-no-files-found: error
+  rust:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        toolchain: ['1.85.0', stable]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          components: rustfmt, clippy
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: cargo fmt --check
+      - run: cargo clippy --locked --all-targets --all-features -- -D warnings
+      - run: cargo test --locked --all-features
+      - run: cargo test --locked --no-default-features
+      - run: cargo build --locked --example parity --features verification
+      - run: python verification/rust_parity.py --binary target/debug/examples/parity --output verification-output/rust-parity.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rust-parity-${{ matrix.toolchain }}
+          path: verification-output/rust-parity.json
+          if-no-files-found: error
