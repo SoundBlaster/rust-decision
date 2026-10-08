@@ -126,6 +126,10 @@ selected only during implementation after API verification.
 
 ## Roadmap and acceptance
 
+The [Choice routing contract proposal](choice-routing-contract.md) expands the
+finite evidence states, named validation rules and terminal routing tables for
+the first implementation stage.
+
 1. Review this contract, including ID mapping, ties, numerical tolerance,
    failure outcomes, backend capabilities and execution semantics.
 2. Implement text Choice with a deterministic fixture backend and named Core
