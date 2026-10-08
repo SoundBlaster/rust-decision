@@ -23,6 +23,7 @@ of fields. A separate robustness suite injects malformed internal states.
 | Variable | Domain | Meaning |
 | --- | --- | --- |
 | phase | Request, Policy, Capability, Invoke, Await, Dispatch, Output, Evidence, Thresholds, Commit, Done | Current boundary |
+| assessment_plan | Nine entries in {S, V, U, C}, keyed by validation rule ID | Immutable abstract input: predetermined result for each rule |
 | invocations | 0, 1 | Number of backend starts |
 | event | none, prediction, refusal, transport_error, authentication_error, malformed_response, unsupported, timed_out, cancelled | Latched backend terminal event |
 | request, policy, capability | NE, S, V, U, C | Validation assessments |
@@ -61,13 +62,28 @@ waiting stutters do not append unbounded trace entries in this finite model.
 
 Init sets phase=Request, invocations=0, event=none, every assessment=NE,
 output_cursor=0, both observation flags=false, candidate=none, published=none
-and the evaluation log empty. Caller configuration and abstract input facts
-are chosen once for an operation and remain fixed.
+and the evaluation log empty. Init nondeterministically selects caller
+configuration, abstract input facts and assessment_plan subject to the consistent
+input partitions below. All three are explicit components of the initial state
+and remain fixed for the operation. Different selected plans are different
+initial states, not different successors of the same state.
+
+The plan contains an outcome for each of the nine named validation rules,
+including rules that may never execute. Planned outcomes are input facts, not
+evaluated assessments or trace events. An executed rule deterministically copies
+its plan entry into its initially NE assessment and appends that evaluation to
+the log. A skipped rule remains NE regardless of its dormant plan entry. No rule
+samples a fresh outcome in Next. The plan abstracts the response facts of a
+potential prediction; a refusal or operational event may leave those entries
+unused. It does not choose, deliver or replace a backend event.
 
 Invalid caller configuration is represented by policy=V when evaluated. No
 fallback may be used before policy=S. Invalid fallback values or forbidden
 trigger configurations are included in invalid-policy input partitions.
 
+Each environment action explicitly identifies newly observed cancellation,
+newly observed expiry and any delivered backend event (or no event). Fixed
+state plus fixed action includes these choices; they are not resampled by Next.
 Environment actions may make cancellation or expiry observable at a boundary.
 Observed flags remain true until terminal commitment. They model observations,
 not the physical arrival time of cancellation or wall-clock precision. A valid
@@ -95,8 +111,9 @@ point; implementation must identify its corresponding single-publication point.
 
 ## Ordinary phase transitions
 
-All rows below require no observed override. Each assessment rule appends
-exactly one entry to the evaluation log. Failure routing creates a candidate
+All rows below require no observed override. Each assessment rule reads its
+fixed assessment_plan entry and appends exactly one entry to the evaluation
+log. Failure routing creates a candidate
 and moves to Commit, retaining the failing assessment in its reason evidence.
 
 | Phase | Action | Next phase / candidate |
@@ -139,7 +156,8 @@ the contract's future-compatible abstention routes, labeled as such.
 
 Specify assumptions separately from derived invariants:
 
-- invalid_present confidence forces confidence=V when evaluated, independent
+- invalid_present confidence forces the confidence plan entry to V and hence
+  confidence=V when evaluated, independent
   of requires_confidence and thresholds;
 - valid_present or declared_absent confidence yields confidence=S;
   unsupported/contradictory confidence yields U/C and structural failure;
@@ -153,11 +171,21 @@ Specify assumptions separately from derived invariants:
   reasons can use it;
 - all assessments begin NE and acquire a value only when their rule executes.
 
-The finite model nondeterministically samples validator assessments subject to
-these partitions. Their correctness against actual requests/predictions must
-be verified separately; declaring them as assumptions does not prove the
-numeric or parser implementation. Additional partitions can refine the model
-without silently changing the accepted outcome contract.
+Init nondeterministically selects the immutable assessment_plan subject to
+these partitions; Next consumes its entries deterministically. For example,
+request planned as S and request planned as V describe two initial states.
+From either fixed state with the same no-override environment action, the
+Request transition has exactly one successor. No execution-time assessment
+choice is hidden outside the state or environment action.
+
+Partition constraints apply to planned values; references above to evaluated
+values describe their copies when reached. In the primary numeric model, a
+planned evidence S restricts planned thresholds to S or V. If evidence is not S,
+thresholds may have a dormant plan entry but its evaluated assessment remains NE.
+Partition correctness against actual requests/predictions must be verified
+separately; declaring assumptions does not prove numeric or parser behavior.
+Additional partitions can refine the model without silently changing the
+accepted outcome contract.
 
 ## Properties and future verification artifacts
 
@@ -176,6 +204,11 @@ without silently changing the accepted outcome contract.
 | P11 | Required confidence absence cannot reach Accepted | Partition-aware exploration |
 | P12 | Event or cancellation/expiry eventually permits Done under stated fairness assumptions | Conditional termination check |
 
+Also check that assessment_plan is immutable, each evaluated assessment equals
+its plan entry, and no evaluation is recorded merely because a plan entry exists.
+Init may have multiple states; this does not violate P2, which applies to Next
+after the full immutable input state has been fixed.
+
 P1 is progress availability, not termination: a permanently waiting backend
 satisfies P1 via stutter. P2 conditions on environment input; different AI
 predictions legitimately lead to different results. Properties about threshold
@@ -183,8 +216,8 @@ monotonicity and option permutation require paired input models or separate
 numeric/mapping tests; they do not follow from arbitrary S/V assessment tags.
 
 For each violation retain the shortest available counterexample: initial input
-partition, phase/event sequence, rule assessments, candidate and published
-outcome. For a successful future run retain the model version/digest, contract
+partition and assessment_plan, phase/event sequence, rule assessments, candidate
+and published outcome. For a successful future run retain the model version/digest, contract
 revision, checker version/command, assumptions, explored-state count and property
 results. No such counts or results exist in this documentation PR.
 
