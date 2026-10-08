@@ -24,3 +24,40 @@ counts use the [documented reduction](../../README.md); full-state traces were
 not individually explored for every input. The results do not establish numeric
 validator correctness, production Rust behavior, semantic AI accuracy or real
 HTTP timeout/cancellation behavior. CI must generate fresh evidence for changes.
+
+## Rust implementation parity
+
+[rust-parity.json](rust-parity.json) records the full comparison at source commit
+`adb763d`, with source/lockfile/test/harness digests and the compiled binary digest.
+Every offered transition at every reachable representative state matched the
+shared Rust engine: primary 90,387 states / 388,908 transitions; conservative
+extension 96,165 states / 413,748 transitions.
+
+Fifteen Rust fixture/boundary tests passed on stable and Rust 1.85; the default
+(non-verification) API also passed all fifteen tests. Clippy with warnings denied
+passed on both toolchains. A deliberately wrong successor process was rejected
+by the parity comparator with a retained failure report. The fixture example
+returned `Accepted(Policy); 9 evaluated rules` without any provider request.
+
+The named numeric Specifications are tested separately from the supplied finite
+assessment plans. No live provider, wire parsing, calibration, model provenance
+or interruption of blocking I/O is established by this evidence.
+
+## Numerical permutation correction
+
+Independent review found order-dependent sequential probability summation.
+Source commit `3092f1c` validates individual bounds first, sums a private copy in
+ascending numerical order with Neumaier compensation, and applies epsilon
+unchanged. Caller option order and ID/value mapping remain unchanged.
+
+The two positive permutation regressions failed before the fix. Afterward,
+18 Rust tests passed on stable and Rust 1.85, including all 36 independent
+request/probability order combinations for each of four distributions: valid
+at zero tolerance, valid at the default tolerance boundary, and invalid beyond
+each tolerance. Clippy passed on both toolchains; default-feature tests and
+format/diff checks passed.
+
+The routing engine and finite-model checker were not changed. The earlier
+`rust-parity.json` remains evidence for its recorded source revision; fresh CI
+produces a separate report for the corrected PR head. Numeric regressions,
+not finite assessment parity, detect this numerical defect.

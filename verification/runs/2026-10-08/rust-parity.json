@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-10-08T08:16:30.070023+00:00",
+  "checkout_revision": "adb763d69afb7906b2fb9163eff27901d413db0d",
+  "source_sha256": {
+    "src/lib.rs": "e7a839d1eeaea2e0cb247358c9af485eab1769395df7acd22f34a53ff0bb39c1",
+    "src/routing.rs": "f6712c33d3269147a3902a100932bb778f07a0a54afe241156657249c283ec11",
+    "src/rules/acceptance_evidence_present.rs": "626a27780a7493f18aa1ca835b85aae5e5e407d655686a5f6761016de17023f0",
+    "src/rules/acceptance_policy_satisfied.rs": "080982dc69328adeb335a839f7245197df81498f239469c4ba7160c852452ad4",
+    "src/rules/advertised_confidence_valid.rs": "62f15155007e8ec374d6b1af1b6d01deba7cae83579c0a014fc2f3eb13d71058",
+    "src/rules/answer_matches_request.rs": "4b59b7e83aeb117ea41898b22c7a12211fa26c4e3e7d0c8b124bc9b93646b474",
+    "src/rules/backend_supports_request.rs": "4fa2f383164e63ba096aab53f5a98890649012524be33ba0177b476cdaa13757",
+    "src/rules/caller_policy_well_formed.rs": "9a16b6ff360abf18b0f23378e3f3c69e880d7c20853fa46e636f53f82842b658",
+    "src/rules/mod.rs": "6ba23af02909b1758c1c28d3f9cc5d66c3e9c77feaa0794bb0377431dc438a6c",
+    "src/rules/probability_distribution_valid.rs": "0b14e24db13bdac46925038216f38efcd2d968ca77011d3f65c26f65fe9117bc",
+    "src/rules/request_well_formed.rs": "a55ea925d846902cb4dbdba8f34d05b30f426a343e0395f67274010d04e6b683",
+    "src/rules/selected_option_consistent.rs": "e24ac460421d53380e0ad6ac7dba7ac85154cd373e6d26370db4f44233cf3cbc",
+    "Cargo.lock": "3661cff1d3947d19bc329516ef8423c09f09e3532e79e08ddb925a8df6a3297a",
+    "Cargo.toml": "b827ca7cbcc45c43127b8c8464f8d1459b6daee10fd7a8964ff46e27312c6a59",
+    "tests/choice.rs": "ba4e8b1e8521289b59fe9e1e6b409e0d6bcf3a3d11fe75c97fbbcccd38eaf5e2",
+    "examples/parity.rs": "51725c17f54dde21731cdb86535750232e96fdf95cf975e38f6f6434e04a3fb9",
+    "verification/rust_parity.py": "b3aad8ace98ba438893c07680564fbf941233cf01a563f1e14560c8f0f4a5e22",
+    "verification/choice_model.py": "20dbf195f5528fc1d3e82016c8224476867dc7e1bca6017d3d76c772d2f13175"
+  },
+  "binary_sha256": "eb4c84654cead44692c158b757f7e2f29c71c388d072daaa4544449a8aeebe4a",
+  "limits": "Representative finite transitions only; numerical rules use separate Rust tests. No live backend evidence.",
+  "passed": true,
+  "modes": {
+    "primary": {
+      "representatives": 1665,
+      "states": 90387,
+      "state_action_pairs": 388908
+    },
+    "conservative_extension": {
+      "representatives": 1719,
+      "states": 96165,
+      "state_action_pairs": 413748
+    }
+  }
+}

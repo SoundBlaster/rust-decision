@@ -83,3 +83,24 @@ threshold monotonicity, production SpecificationCore rules, model accuracy,
 actual async cancellation, or a general malformed-internal-state/duplicate-event
 robustness suite. Those remain separate implementation/parity tasks. A passing
 finite model is evidence about this declared abstraction only.
+
+## Rust implementation parity
+
+The same Rust routing engine used by `decide` has a verification-only harness.
+The `verification` feature exposes its trusted finite-state inputs; applications
+should use the typed Choice API without that feature. The harness supplies fixed
+assessment plans, while production calls named Specifications lazily only at
+reached stages over borrowed request/policy/prediction data.
+
+```sh
+cargo test --locked --all-features
+cargo build --locked --example parity --features verification
+python3 verification/rust_parity.py --binary target/debug/examples/parity --output verification-output/rust-parity.json
+```
+
+Parity compares the entire next state for every offered action at every reachable
+representative state in both modes, including terminal stutters and Await without
+reinference. This transfers routing evidence to the shared Rust engine; it does
+not prove numerical validators or the adapter's assessments. Rust boundary tests
+cover those separately. Real I/O, numeric calibration, provider provenance and
+async cancellation still require adapter work and evidence.

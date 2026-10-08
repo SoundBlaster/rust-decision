@@ -1,9 +1,14 @@
 # Choice routing contract v1 — proposal
 
-Status: theoretical preparation, 2026-10-07. This document specifies a finite
-routing model for [the proposed decision core](decision-contract.md). No Rust
-types, network calls, Specifications or exhaustive tests are implemented here.
-Formal verification of the implementation remains future work.
+Status: contract proposal with initial Rust implementation, 2026-10-08.
+The typed synchronous Choice API and named rules are implemented; HTTP, model
+provenance, real transport cancellation and calibration remain adapter work.
+Original proposal text below distinguishes later design requirements.
+
+Design baseline: theoretical preparation, 2026-10-07. This document specifies a finite
+routing model for [the proposed decision core](decision-contract.md). The current Rust API implements named Specifications and fixture execution.
+Finite routing parity is checked against the offline model; numeric tests and
+that bounded comparison do not establish actual backend behavior.
 
 ## Scope and vocabulary
 
@@ -107,6 +112,12 @@ is unknown/conflict at the structural boundary and also fails output validation.
 - Probability normalization tolerance is absolute: default epsilon = 1e-6,
   configurable with a finite value in [0, 1e-3]. Record the effective tolerance.
   Validate individual range bounds strictly; do not clip or renormalize values.
+  The Rust implementation first validates every value, then sums a copy in
+  ascending numerical order with Neumaier compensation. This makes normalization
+  independent of option storage and opaque IDs while reducing rounding loss;
+  request and prediction ordering are preserved. Compare the resulting `f64`
+  sum against epsilon unchanged. This is reproducible floating-point arithmetic,
+  not exact decimal arithmetic or silent tolerance expansion.
 - A selected probability p is consistent when max_probability - p <= epsilon.
   Preserve the provider's selected ID within a tie; never replace it silently.
 - A configured threshold t passes when its validated value >= t. Normalization
@@ -192,12 +203,14 @@ normal prediction; it is not engine abstention or provider refusal.
 
 The [finite model proposal](choice-finite-model.md) defines state domains,
 phase transitions, environment assumptions and verification artifacts for
-these obligations. It is a design document, not an executed proof.
+these obligations. The model has an executable checker and the shared Rust engine has
+representative transition parity checks; neither is a general proof of all
+implementation or backend behavior.
 
-The future exhaustive check enumerates reachable combinations of finite
+The offline checker enumerates reachable combinations of finite
 assessment states, backend events, cancellation/deadline observations and
-fallback configurations. Numeric validators need separate property and boundary
-tests; enumerating the routing states does not prove their floating-point code.
+fallback configurations. The Rust engine is compared transition by transition on those representatives.
+Numeric validators have separate property and boundary tests; enumerating the routing states does not prove their floating-point code.
 
 Verify these obligations:
 
@@ -232,7 +245,7 @@ Verify these obligations:
 | Two tied maximum options; provider selected one of them | Preserve selection; evaluate its acceptance evidence |
 | Valid prediction selects application label needs_review and passes policy | Accepted(needs_review); consumer chooses what that label means |
 
-These are theoretical expected cases, not executed test results. Manual review
-of the table precedes implementation. Verify the realized Specifications and
-their composition against the table, then evaluate AI classification accuracy
-separately using independently reviewed cases.
+These are normative expected cases, not claims about a live provider. The Rust
+fixture tests cover the initial numerical implementation; the verification harness
+compares shared engine transitions with the finite model. Evaluate AI semantic
+accuracy separately using independently reviewed cases.

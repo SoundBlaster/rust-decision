@@ -1,0 +1,20 @@
+[package]
+name = "rust-decision"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT"
+description = "Provider-neutral typed Choice decisions with explicit validation and uncertainty"
+repository = "https://github.com/SoundBlaster/rust-decision"
+
+[dependencies]
+specification-core = { git = "https://github.com/SoundBlaster/specification-core-rs", rev = "043a0bae6e2834e2a342de1a200a215baed16dd6" }
+serde = { version = "1", features = ["derive"], optional = true }
+serde_json = { version = "1", optional = true }
+
+[features]
+verification = ["dep:serde", "dep:serde_json"]
+
+[[example]]
+name = "parity"
+required-features = ["verification"]
