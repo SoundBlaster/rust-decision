@@ -91,8 +91,10 @@ requiring confidence. An advertised confidence that is nonfinite or outside
 [0,1] is invalid output. Valid numerical confidence is not evidence of
 cross-provider calibration.
 
-AdvertisedConfidenceValid is evaluated for every prediction before acceptance
-evidence, including probability-only and empty-threshold policies. It is
+AdvertisedConfidenceValid is evaluated for every prediction reaching its output
+validation stage before acceptance evidence, including probability-only and
+empty-threshold policies. An earlier structural failure may stop validation;
+the prediction still cannot be accepted. It is
 satisfied by a valid present confidence or a permitted declared absence;
 nonfinite/out-of-range confidence is violated and never becomes ordinary
 missing evidence. Unsupported or contradictory confidence representation
@@ -146,6 +148,8 @@ are backend obligations. If an adapter cannot meet them, it cannot advertise
 the corresponding capability. The implementation must define its terminal
 commit point; this contract does not promise interruption of completed work.
 Observed cancellation wins over a simultaneously observed expired deadline.
+When a latched backend cancelled event is dispatched, it also counts as observed
+cancellation for this priority rule.
 Cancellation after commitment does not rewrite a completed outcome.
 
 ## Complete acceptance table
@@ -185,6 +189,10 @@ elects fallback. A model returning the application's label needs_review is a
 normal prediction; it is not engine abstention or provider refusal.
 
 ## Formal obligations and theoretical cases
+
+The [finite model proposal](choice-finite-model.md) defines state domains,
+phase transitions, environment assumptions and verification artifacts for
+these obligations. It is a design document, not an executed proof.
 
 The future exhaustive check enumerates reachable combinations of finite
 assessment states, backend events, cancellation/deadline observations and
