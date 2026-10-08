@@ -1,6 +1,6 @@
 # Choice routing verification — 2026-10-08
 
-Executed the offline checker at source commit `3c481eb` with standard-library
+Executed the offline checker at source commit `06d77a3` with standard-library
 Python. [report.json](report.json) records exact source/contract digests, Python
 version, checkout revision, invocation and reproducible mutation witnesses.
 
@@ -13,9 +13,10 @@ P1–P11 passed in the finite routing abstraction. P12's finite-rank checks pass
 termination remains conditional on eventual backend event or observable
 cancellation/expiry and fair core progression. This is not a real backend test.
 
-All six faulty controls were detected: confidence bypass (P8), repeated Await
+All seven faulty controls were detected: confidence bypass (P8), repeated Await
 invocation (P6), authentication fallback (P7), missing-evidence acceptance (P4),
-late Done rewrite (P3), and nondeterministic Request (P2). Six regression tests
+authentication disguised as allowed provider refusal (P7), late Done rewrite
+(P3), and nondeterministic Request (P2). Seven regression tests
 passed, including JSON witness replay and dormant-plan graph equivalence cases.
 
 The full-input count is enumerated coverage under input partitions. Reachability
