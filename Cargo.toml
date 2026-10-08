@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 rust-version = "1.85"
 license = "MIT"
-description = "Provider-neutral typed Choice decisions with explicit validation and uncertainty"
+description = "Provider-neutral typed Choice, Predicate and Score decisions with explicit validation and uncertainty"
 repository = "https://github.com/SoundBlaster/rust-decision"
 
 [dependencies]
