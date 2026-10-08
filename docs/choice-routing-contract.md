@@ -112,6 +112,12 @@ is unknown/conflict at the structural boundary and also fails output validation.
 - Probability normalization tolerance is absolute: default epsilon = 1e-6,
   configurable with a finite value in [0, 1e-3]. Record the effective tolerance.
   Validate individual range bounds strictly; do not clip or renormalize values.
+  The Rust implementation first validates every value, then sums a copy in
+  ascending numerical order with Neumaier compensation. This makes normalization
+  independent of option storage and opaque IDs while reducing rounding loss;
+  request and prediction ordering are preserved. Compare the resulting `f64`
+  sum against epsilon unchanged. This is reproducible floating-point arithmetic,
+  not exact decimal arithmetic or silent tolerance expansion.
 - A selected probability p is consistent when max_probability - p <= epsilon.
   Preserve the provider's selected ID within a tie; never replace it silently.
 - A configured threshold t passes when its validated value >= t. Normalization

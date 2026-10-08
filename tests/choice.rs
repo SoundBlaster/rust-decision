@@ -438,3 +438,112 @@ fn returned_backend_cancellation_wins_over_simultaneous_expiry() {
     assert_eq!(r.decision, Decision::Cancelled);
     assert_eq!(b.calls, 1);
 }
+
+const THREE_OPTION_PERMUTATIONS: [[usize; 3]; 6] = [
+    [0, 1, 2],
+    [0, 2, 1],
+    [1, 0, 2],
+    [1, 2, 0],
+    [2, 0, 1],
+    [2, 1, 0],
+];
+
+fn assert_distribution_permutations(values: [f64; 3], epsilon: f64, expected: Decision<u8>) {
+    struct PermutationFixture {
+        prediction: Prediction,
+        request_order: Vec<String>,
+    }
+    impl Backend for PermutationFixture {
+        fn capabilities(&self) -> Capabilities {
+            Capabilities {
+                text_choice: true,
+                max_text_bytes: 10000,
+                max_options: 10,
+            }
+        }
+        fn invoke(&mut self, request: &BackendRequest) -> BackendEvent {
+            // The numerical fix must not reorder the caller's wire request.
+            assert_eq!(
+                request
+                    .options
+                    .iter()
+                    .map(|(id, _)| id.clone())
+                    .collect::<Vec<_>>(),
+                self.request_order
+            );
+            BackendEvent::Prediction(self.prediction.clone())
+        }
+    }
+    let mut original = request();
+    original.options.push(Choice {
+        id: "c".into(),
+        description: "C".into(),
+        value: 3,
+    });
+    let ids = ["a", "b", "c"];
+    let policy = Policy {
+        epsilon,
+        ..Default::default()
+    };
+    let mut baseline_rules = None;
+    for request_order in THREE_OPTION_PERMUTATIONS {
+        for probability_order in THREE_OPTION_PERMUTATIONS {
+            let mut request = original.clone();
+            request.options = request_order
+                .iter()
+                .map(|&i| original.options[i].clone())
+                .collect();
+            let mut backend = PermutationFixture {
+                prediction: Prediction {
+                    question_id: "q".into(),
+                    selected_id: "c".into(),
+                    probabilities: probability_order
+                        .iter()
+                        .map(|&i| (ids[i].into(), values[i]))
+                        .collect(),
+                    confidence: Confidence::Unavailable,
+                },
+                request_order: request.options.iter().map(|o| o.id.clone()).collect(),
+            };
+            let report = decide(&request, &policy, &mut backend, Observation::default);
+            assert_eq!(
+                report.decision, expected,
+                "request={request_order:?}, probabilities={probability_order:?}, epsilon={epsilon}"
+            );
+            assert_eq!(report.invocations, 1);
+            if let Some(rules) = &baseline_rules {
+                assert_eq!(&report.rules, rules);
+            } else {
+                baseline_rules = Some(report.rules);
+            }
+        }
+    }
+}
+
+#[test]
+fn three_option_permutations_are_invariant_at_zero_tolerance() {
+    assert_distribution_permutations([0.1, 0.2, 0.7], 0.0, Decision::Accepted(3));
+}
+
+#[test]
+fn three_option_permutations_are_invariant_at_default_tolerance_boundary() {
+    assert_distribution_permutations(
+        [0.1, 0.2, 0.700001],
+        Policy::default().epsilon,
+        Decision::Accepted(3),
+    );
+}
+
+#[test]
+fn permutation_stability_does_not_relax_normalization_tolerance() {
+    for (values, epsilon) in [
+        ([0.1, 0.2, 0.6999999999999998], 0.0),
+        ([0.1, 0.2, 0.700002], Policy::default().epsilon),
+    ] {
+        assert_distribution_permutations(
+            values,
+            epsilon,
+            Decision::Failed(Failure::OutputValidation),
+        );
+    }
+}
