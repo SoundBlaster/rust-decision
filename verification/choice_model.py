@@ -15,7 +15,7 @@ import platform
 import subprocess
 import sys
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 RULES = (
     "RequestWellFormed", "CallerPolicyWellFormed", "BackendSupportsRequest",
     "AnswerMatchesRequest", "ProbabilityDistributionValid",
@@ -37,6 +37,7 @@ CONFIDENCE = {
 }
 MUTATIONS = (
     "accept_invalid_confidence", "repeat_await", "fallback_authentication",
+    "mislabel_authentication_as_refusal",
     "accept_missing_evidence", "rewrite_done", "nondeterministic_request",
 )
 
@@ -168,6 +169,8 @@ def successors(state, action, mutation=""):
             result.append(replace(updated, phase="Output", cursor=0))
         elif updated.event == "refusal":
             result.append(propose(updated, route_reason(updated.inputs, "provider_refusal")))
+        elif mutation == "mislabel_authentication_as_refusal" and updated.event == "authentication_error":
+            result.append(propose(updated, Outcome("Fallback", "provider_refusal", "fallback_value")))
         elif mutation == "fallback_authentication" and updated.event == "authentication_error":
             result.append(propose(updated, Outcome("Fallback", "authentication_error", "fallback_value")))
         elif updated.event in EVENTS:
@@ -229,8 +232,18 @@ def invariant(state):
         if state.event != "prediction" or state.invocations != 1:
             return "P5"
     if out.kind == "Fallback":
+        # Independent causal predicates: an allowed label alone is insufficient.
+        structural_pass = state.assessed[:7] == ("S",) * 7
+        trigger_occurred = {
+            "provider_refusal": state.event == "refusal" and state.assessed == ("S",) * 3 + ("NE",) * 6,
+            "missing_evidence": state.event == "prediction" and structural_pass and (
+                state.assessed[7:] in (("V", "NE"), ("U", "NE"), ("S", "U"))
+            ),
+            "policy_rejected": state.event == "prediction" and state.assessed == ("S",) * 8 + ("V",),
+        }.get(out.reason, False)
         bit = TRIGGERS.get(out.reason, 0)
-        if (state.assessed[1] != "S" or state.inputs.fallback < 0 or not bit
+        if (not trigger_occurred or state.invocations != 1
+                or state.assessed[1] != "S" or state.inputs.fallback < 0 or not bit
                 or not state.inputs.fallback & bit or out.value != "fallback_value"):
             return "P7"
     return None

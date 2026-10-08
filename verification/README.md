@@ -55,7 +55,7 @@ reachable representative state, including all backend events, no-event waiting,
 both observation flags and late observations in Done. Counterexamples are
 shortest within the first failing representative, not globally across all
 initial inputs. The report retains the initial plan, prefix and violating action.
-Tests JSON-roundtrip and replay witnesses from all six faulty controls.
+Tests JSON-roundtrip and replay witnesses from all seven faulty controls.
 
 ## Property coverage and limits
 
@@ -72,7 +72,8 @@ from eventual backend event/observable cancellation or expiry and fair core
 progression. No unconditional backend termination is claimed.
 
 Faulty controls deliberately bypass confidence validation, reinvoke Await,
-fallback on authentication failure, accept without evidence, rewrite Done or
+fallback on authentication failure, disguise authentication failure as an allowed
+provider refusal, accept without evidence, rewrite Done or
 introduce two Request successors. All must produce a counterexample. Controls
 use representative inputs to show each detector works; they do not claim full
 coverage of every possible mutant after the original reduction is invalidated.

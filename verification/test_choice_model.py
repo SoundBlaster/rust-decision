@@ -7,7 +7,7 @@ import unittest
 
 from choice_model import (
     Action, Input, MUTATIONS, Outcome, State, actions, explore,
-    successors, transition_property,
+    successors, transition_property, invariant,
 )
 
 
@@ -71,15 +71,39 @@ class CheckerTests(unittest.TestCase):
         self.assertTrue(report["passed"])
         self.assertFalse(any(kind == "Accepted" for kind, _ in report["outcomes"]))
 
+    def test_fallback_requires_matching_event_and_assessments(self):
+        cases = [
+            ("refusal", ("S",) * 3, "provider_refusal", True),
+            ("authentication_error", ("S",) * 3, "provider_refusal", False),
+            ("", ("S", "S", "V"), "provider_refusal", False),
+            ("prediction", ("S",) * 3 + ("V",), "provider_refusal", False),
+            ("prediction", ("S",) * 7 + ("V",), "missing_evidence", True),
+            ("prediction", ("S",) * 7 + ("U",), "missing_evidence", True),
+            ("prediction", ("S",) * 8 + ("U",), "missing_evidence", True),
+            ("prediction", ("S",) * 7 + ("C",), "missing_evidence", False),
+            ("prediction", ("S",) * 8 + ("V",), "policy_rejected", True),
+            ("prediction", ("S",) * 9, "policy_rejected", False),
+        ]
+        for event, prefix, reason, valid in cases:
+            with self.subTest(event=event, prefix=prefix, reason=reason):
+                plan = prefix + ("S",) * (9 - len(prefix))
+                assessed = prefix + ("NE",) * (9 - len(prefix))
+                state = State(inputs(plan, fallback=7), phase="Done", invocations=1,
+                              event=event, assessed=assessed,
+                              log=tuple(enumerate(prefix)),
+                              published=Outcome("Fallback", reason, "fallback_value"))
+                self.assertEqual(invariant(state), None if valid else "P7")
+
     def test_all_control_counterexamples_survive_json_roundtrip_and_replay(self):
         cases = [
-            inputs(),
+            inputs(fallback=7),
             inputs(("S",) * 5 + ("V", "S", "S", "S"), "invalid_present"),
             inputs(("S",) * 7 + ("V", "S"), "declared_absent", True),
         ]
         expected = {
             "accept_invalid_confidence": "P8", "repeat_await": "P6",
-            "fallback_authentication": "P7", "accept_missing_evidence": "P11",
+            "fallback_authentication": "P7", "mislabel_authentication_as_refusal": "P7",
+            "accept_missing_evidence": "P11",
             "rewrite_done": "P3", "nondeterministic_request": "P2",
         }
         for mutation in MUTATIONS:
